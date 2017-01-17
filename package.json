@@ -1,0 +1,135 @@
+{
+    "name": "execoder",
+    "displayName": "ExeCoder",
+    "description": "An extesion for contol compiler/linker/composer/debuger/interpretator in VSCode.",
+    "version": "0.0.1",
+    "publisher": "MazyCrazy",
+	"icon": "images/logo.png",
+    "engines": {
+        "vscode": "^1.5.0"
+    },
+	"categories": [
+		"Languages",
+		"Other"
+	],
+	"keywords": [
+		"c",
+		"c++",
+		"compiler",
+		"executor",
+		"execoder"
+	],
+	"bugs": {
+		"url": "https://github.com/GamesAdmin/vscode-execoder/issues",
+		"email": "xxXAKEPxx@gmail.com"
+	},
+	"homepage": "https://github.com/GamesAdmin/vscode-execoder/blob/master/README.md",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/GamesAdmin/vscode-execoder.git"
+	},
+	"activationEvents": [
+		"onCommand:execoder.BuildFile",
+		"onCommand:execoder.CompileFile",
+		"onCommand:execoder.LinkFile",
+		"onCommand:execoder.BuildnStartFile",
+		"onCommand:execoder.LinknStartFile",
+		"onCommand:execoder.StartFile"
+	],
+	"main": "./out/src/extension",
+    "contributes": {
+        "commands": [
+            {
+                "command": "execoder.BuildFile",
+                "title": "ExeCoder: Build File"
+            },
+            {
+                "command": "execoder.CompileFile",
+                "title": "ExeCoder: Compile File"
+            },
+            {
+                "command": "execoder.LinkFile",
+                "title": "ExeCoder: Link File"
+            },
+            {
+                "command": "execoder.BuildnStartFile",
+                "title": "ExeCoder: Build and Start File"
+            },
+            {
+                "command": "execoder.LinknStartFile",
+                "title": "ExeCoder: Link and Start File"
+            },
+            {
+                "command": "execoder.StartFile",
+                "title": "ExeCoder: Start File"
+            }
+        ],
+        "keybindings":  [
+            {
+                "key": "f9", "command": "execoder.BuildFile", "when": "editorTextFocus"
+            },
+            {
+                "key": "ctrl+f9", "command": "execoder.CompileFile", "when": "editorTextFocus"
+            },
+            {
+                "key": "ctrl+shift+f9", "command": "execoder.LinkFile", "when": "editorTextFocus"
+            },
+            {
+                "key": "ctrl+shift+r", "command": "execoder.StartFile", "when": "editorTextFocus"
+            }
+        ],
+		"configuration": {
+			"type": "object",
+			"title": "ExeCoder configuration",
+			"properties": {
+				"execoder.executorMap": {
+					"type": "object",
+					"default": {
+						"javascript": "node",
+						"java": "cd $dir && javac $fileName && java $fileNameWithoutExt",
+						"c": "cd $dir && gcc $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+                        "cpp": {"build": "cd $dir && g++ $fileName -o $fileNameWithoutExt.exe",
+                                "compile": "cd $dir && g++ $fileName -o $fileNameWithoutExt.o",
+                                "link": "cd $dir && g++ $fileNameWithoutExt.o -o $fileNameWithoutExt.exe",
+                                "start": "cd $dir $fileNameWithoutExt.exe"},
+						"php": "php",
+						"python": "python",
+						"perl": "perl",
+						"ruby": "ruby",
+						"go": "go run",
+						"lua": "lua",
+						"groovy": "groovy",
+						"powershell": "powershell -ExecutionPolicy ByPass -File",
+						"bat": "",
+						"shellscript": "bash",
+						"fsharp": "fsi",
+						"csharp": "scriptcs",
+						"vbscript": "cscript //Nologo",
+						"typescript": "ts-node",
+						"coffeescript": "coffee",
+						"scala": "scala",
+						"swift": "swift",
+						"julia": "julia",
+						"crystal": "crystal",
+						"ocaml": "ocaml",
+						"r": "Rscript",
+						"applescript": "osascript"
+					},
+					"description": "Set the executor of each language."
+				}
+			}
+		}
+    },
+    "scripts": {
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "typescript": "^2.0.3",
+        "vscode": "^1.0.0",
+        "mocha": "^2.3.3",
+        "eslint": "^3.6.0",
+        "@types/node": "^6.0.40",
+        "@types/mocha": "^2.2.32"
+    }
+}
